@@ -2,12 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const path = require('path');
+
 // Load environment variables from .env file
 dotenv.config();
-require('dotenv').config();
 
-// Log to verify MONGO_URI is loaded correctly
 console.log('MongoDB URI:', process.env.MONGO_URI);
 console.log('Port:', process.env.PORT);
 
@@ -39,8 +37,8 @@ app.use('/api/inspectors', inspectorRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/api/inspections', inspectionRoutes);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

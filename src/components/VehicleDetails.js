@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function VehicleDetails() {
   const { customerId } = useParams(); // Retrieve customerId from route params
+  const navigate = useNavigate(); // Use navigate for redirection
   const [vehicles, setVehicles] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch vehicle details including images
     const fetchVehicleDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/vehicles`, {
-          params: { customerId } // Send customerId as a query parameter
-        });
+        // Fetch vehicles by customerId from backend
+        const response = await axios.get(`http://localhost:5001/api/vehicles/customers/${customerId}`);
         setVehicles(response.data.vehicles);
       } catch (error) {
         setError('Error fetching vehicle details');
@@ -21,31 +20,36 @@ function VehicleDetails() {
       }
     };
 
-    fetchVehicleDetails();
+    if (customerId) {
+      fetchVehicleDetails(); // Call fetch only if customerId exists
+    }
   }, [customerId]);
+
+  const handleServiceClick = (vehicleId) => {
+    navigate(`/inspection/${vehicleId}`); // Redirect to the inspection page
+  };
 
   return (
     <div>
       {error && <p>{error}</p>}
       {vehicles.length > 0 ? (
-        vehicles.map((vehicle, index) => (
-          <div key={index}>
+        vehicles.map((vehicle) => (
+          <div key={vehicle._id}>
             <h2>{vehicle.vehicleName}</h2>
-            <p>License Plate: {vehicle.licensePlate}</p>
-            <p>Status: {vehicle.status}</p>
             {vehicle.vehicleImage && vehicle.vehicleImage.length > 0 && (
               <div>
                 <h3>Vehicle Images</h3>
                 {vehicle.vehicleImage.map((image, idx) => (
-                  <img 
-                    key={idx} 
-                    src={`/uploads/customers/${customerId}/${vehicle._id}/${image}`} 
-                    alt={`Vehicle ${idx + 1}`} 
+                  <img
+                    key={idx}
+                    src={image} // Directly using the URL from the database
+                    alt={`Vehicle ${idx + 1}`}
                     style={{ width: '200px', height: '150px', margin: '10px' }}
                   />
                 ))}
               </div>
             )}
+            <button onClick={() => handleServiceClick(vehicle._id)}>Service</button> {/* Button to go to inspection */}
           </div>
         ))
       ) : (

@@ -1,0 +1,70 @@
+/* InspectionPage.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Light blue background */
+    margin: 0;
+    padding: 20px;
+}
+
+.inspection-page {
+    background-color: #ffffff; /* White background for the form */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+h1 {
+    color: #007bff; /* Blue color for main heading */
+    text-align: center;
+}
+
+h2 {
+    color: #28a745; /* Green color for subheadings */
+}
+
+h3 {
+    color: #dc3545; /* Red color for translated summaries headings */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #007bff; /* Blue border */
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #0056b3; /* Darker blue when focused */
+    outline: none;
+}
+
+button {
+    background-color: #007bff; /* Blue button */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.error {
+    color: #dc3545; /* Red color for error messages */
+    text-align: center;
+}
+
+pre {
+    background-color: #e9ecef; /* Light gray for summary and translated texts */
+    border-radius: 4px;
+    padding: 10px;
+    overflow-x: auto;
+}
